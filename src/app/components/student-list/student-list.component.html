@@ -1,0 +1,121 @@
+<div class="m-3">
+  <!-- Filter Section -->
+  <div class="row">
+    <!-- School Filter Dropdown -->
+    <div class="col-md-3">
+      <label for="school">School</label>
+      <select
+        id="school"
+        class="form-control"
+        [(ngModel)]="filters.SchoolId"
+        name="school"
+      >
+        <option [ngValue]="null">Select School</option>
+        <option *ngFor="let s of schools" [ngValue]="s.id">
+          {{ s.name }}
+        </option>
+      </select>
+    </div>
+    <!-- Year Filter as Input -->
+    <div class="col-md-3">
+      <label for="year">Year</label>
+      <input
+        type="number"
+        id="year"
+        class="form-control"
+        placeholder="Enter Year"
+        [(ngModel)]="filters.Year"
+        name="year"
+      />
+    </div>
+    <!-- Grade Filter as Input -->
+    <div class="col-md-3">
+      <label for="grade">Grade</label>
+      <input
+        type="number"
+        id="grade"
+        class="form-control"
+        placeholder="Enter Grade"
+        [(ngModel)]="filters.Grade"
+        name="grade"
+      />
+    </div>
+    <!-- Classroom Filter Dropdown -->
+    <div class="col-md-3">
+      <label for="class">Classroom</label>
+      <select
+        id="class"
+        class="form-control"
+        [(ngModel)]="filters.ClassRoomId"
+        name="class"
+      >
+        <option [ngValue]="null">Select Classroom</option>
+        <option *ngFor="let c of classRoom" [ngValue]="c.id">
+          {{ c.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Buttons Section -->
+  <div class="row my-4">
+    <div class="col-md-3">
+      <button class="btn btn-primary w-100" (click)="getFilteredStudents()">
+        View Report
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success w-100" (click)="exportToExcel()">
+        Export to Excel
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-danger w-100" (click)="exportToPDF()">
+        Export to PDF
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-secondary w-100" (click)="printReport()">
+        Print Report
+      </button>
+    </div>
+  </div>
+
+  <div class="row mb-3" *ngIf="selectedSchool">
+    <div class="d-flex">
+      <div class="w-50 px-4">
+        <h5 class="mt-2 text-center">{{ selectedSchool.reportHeaderOneEn }}</h5>
+        <p class="text-end">{{ selectedSchool.reportHeaderTwoEn }}</p>
+      </div>
+      <div class="w-50 px-4">
+        <h5 class="text-center">{{ selectedSchool.reportHeaderOneAr }}</h5>
+        <p class="text-start">{{ selectedSchool.reportHeaderTwoAr }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Students Table Section -->
+  <div class="row">
+    <div class="col-12">
+      <!-- The id "studentTable" is used for PDF export -->
+      <table class="table table-striped" id="studentTable">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>PhoneNumber</th>
+            <th>Nationality</th>
+            <th>Gender</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{ student.userName }}</td>
+            <td>{{ student.phoneNumber }}</td>
+            <td>{{ student.nationality }}</td>
+            <td>{{ student.gender }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
